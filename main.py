@@ -8,7 +8,16 @@ from signalHandler import signalHandler
 from visualise import visualise
 from trading_strategy import trading_strategy
 
-############# READ FILE #############
+######################################################################################################################################################################
+# 1. Read the input file with minimum number of rows requried for the trading strategy
+# 2. Construct the object 'broker' for broker actions like buy, sell
+# 3. Call trading strategy module with input data as argument
+# 4. Based on the return signal (1: Buy, -1: Sell, 0: Check Stop Condition) from trading strategy module perform broker action accordingly
+# 5. Generate final backtesting data
+# 6. Visualize backtesting data
+######################################################################################################################################################################
+#
+############# READ FILE ##################
 
 data = pd.read_csv('GBPUSD_H1_202001020600_202006010000.csv',sep='\t', skiprows=1, names = ['date', 'time', 'open', 'high', 'low', 'close', 'tickvol','vol','spread' ])
 #data = pd.read_csv('EURUSD_M30.csv',sep=',', skiprows=1, names = ['time', 'open', 'high', 'low', 'close', 'tickvol','vol','spread' ])
@@ -23,7 +32,7 @@ stop_loss = -10*one_pip     # <----- (THIS WILL CHANGE!!, if the code recieves o
 take_profit = 20*one_pip    # <----- For example. If we holding a buy pisition and sell signal received (labeled as buyy_sell in signalHandler.py) then the position will be closed. 
 broker_cost = 2*one_pip
 inputs = deque(maxlen=input_row_size)
-############# BACKTESTING #############
+############# BACKTESTING #################
 # Handels Buy and Sell
 broker = signalHandler(stop_loss,take_profit,broker_cost,data)
 
